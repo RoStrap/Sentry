@@ -67,7 +67,7 @@ local Try = Resources:LoadLibrary("Try")
 local Sentry = Resources:LoadLibrary("Sentry")
 
 Try(function(x) error("test client error " .. x) end, "1")
-		:Catch(Sentry.Post)
+	:Catch(Sentry.Post)
 ```
 
 Here are your free Sentry rate limits:
