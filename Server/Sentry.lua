@@ -43,8 +43,8 @@ local Resources = require(ReplicatedStorage:WaitForChild("Resources"))
 
 -- Libraries
 local Try = Resources:LoadLibrary("Try")
+local Table = Resources:LoadLibrary("Table")
 local Enumeration = Resources:LoadLibrary("Enumeration")
-local TableToString = Resources:LoadLibrary("Debug").TableToString
 
 Enumeration.IssueType = {"Debug", "Info", "Warning", "Error", "Fatal"}
 
@@ -59,7 +59,6 @@ local RemoteEvent = Resources:GetRemoteEvent("Sentry")
 
 -- Module Table
 local Sentry = {}
-Sentry.__index = Sentry
 
 -- Mute Warnings if ENABLE_WARNINGS is not true
 local warn = ENABLE_WARNINGS and warn or function() end
@@ -193,4 +192,4 @@ RemoteEvent.OnServerEvent:Connect(function(Player, Message, Traceback, MessageTy
 	end
 end)
 
-return Sentry
+return Table.Lock(Sentry)
