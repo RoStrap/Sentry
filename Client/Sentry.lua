@@ -16,8 +16,12 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 -- RoStrap Core
 local Resources = require(ReplicatedStorage:WaitForChild("Resources"))
+
+-- Libraries
+local Table = Resources:LoadLibrary("Table")
 local Enumeration = Resources:LoadLibrary("Enumeration")
 
+-- Enumeration
 Enumeration.IssueType = {"Debug", "Info", "Warning", "Error", "Fatal"}
 
 -- RemoteEvent
@@ -41,4 +45,4 @@ function Sentry:Post(Message, Traceback, MessageType)
 	)
 end
 
-return Sentry
+return Table.Lock(Sentry)
