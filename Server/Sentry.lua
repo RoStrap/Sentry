@@ -1,5 +1,6 @@
 -- Sentry integration
 -- @filtering Server
+-- @author Validark
 
 --[[
 	Example, client:
@@ -43,6 +44,7 @@ local Resources = require(ReplicatedStorage:WaitForChild("Resources"))
 
 -- Libraries
 local Try = Resources:LoadLibrary("Try")
+local Date = Resources:LoadLibrary("Date")
 local Table = Resources:LoadLibrary("Table")
 local Enumeration = Resources:LoadLibrary("Enumeration")
 
@@ -63,10 +65,6 @@ local Sentry = {}
 -- Mute Warnings if ENABLE_WARNINGS is not true
 local warn = ENABLE_WARNINGS and warn or function() end
 
-local function stringify(value)
-	return typeof(value) .. " " .. tostring(value)
-end
-
 local function Post(self, Message, Traceback, MessageType, Logger)
 	if self ~= Sentry then
 		Message, Traceback, MessageType, Logger = self, Message, Traceback, MessageType
@@ -82,8 +80,7 @@ local function Post(self, Message, Traceback, MessageType, Logger)
 		Level = IssueTypes[MessageType.Value]
 	end
 
-	local Date = os.date("!*t")
-	local Timestamp = ("%04d-%02d-%02dT%02d:%02d:%02d"):format(Date.year, Date.month, Date.day, Date.hour, Date.min, Date.sec)
+	local Timestamp = Date("%Y-%m-%dT%H:%M:%S")
 
 	local Packet = {
 		level = Level or "error";
