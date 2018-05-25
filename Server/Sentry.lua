@@ -1,4 +1,4 @@
--- Sentry integration
+-- Sentry.io integration for remote error monitoring
 -- @filtering Server
 -- @author Validark
 
