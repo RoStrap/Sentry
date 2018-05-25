@@ -1,4 +1,4 @@
--- Client-side Sentry access
+-- Sentry.io integration for remote error monitoring
 -- @filtering Client
 
 --[[
