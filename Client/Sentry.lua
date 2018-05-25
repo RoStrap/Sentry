@@ -1,5 +1,6 @@
 -- Sentry.io integration for remote error monitoring
 -- @filtering Client
+-- @author Validark
 
 --[[
 	Example, client:
