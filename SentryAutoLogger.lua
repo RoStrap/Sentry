@@ -1,3 +1,7 @@
+-- Sentry.io integration for remote error monitoring
+-- Automatically logs errors, warnings, and prints
+-- @author Validark
+
 -- Types of Console Outputs to automatically Post to Sentry
 local AutoSendTypes = {
 	[Enum.MessageType.MessageOutput] = true;
