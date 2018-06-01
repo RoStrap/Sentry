@@ -31,12 +31,14 @@ local RemoteEvent = Resources:GetRemoteEvent("Sentry")
 -- Exposed API
 local Sentry = {}
 
+local LockedSentry
+
 function Sentry:Post(Message, Traceback, MessageType)
 	-- Post(string Message [string MessageType, string Traceback])
 	-- Posts parameters to Sentry.io
 	-- Supports hybrid syntax calling
 
-	if self ~= Sentry then Message, Traceback, MessageType = self, Message, Traceback end
+	if self ~= LockedSentry then Message, Traceback, MessageType = self, Message, Traceback end
 
 	RemoteEvent:FireServer(Message, Traceback or debug.traceback(),
 		type(MessageType) == "number" and MessageType or
@@ -46,4 +48,5 @@ function Sentry:Post(Message, Traceback, MessageType)
 	)
 end
 
-return Table.Lock(Sentry)
+LockedSentry = Table.Lock(Sentry)
+return LockedSentry
