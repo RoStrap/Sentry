@@ -82,7 +82,7 @@ local function Post(self, Message, Traceback, MessageType, Logger)
 		Level = IssueTypes[MessageType.Value]
 	end
 
-	local Timestamp = Date("%Y-%m-%dT%H:%M:%S")
+	local Timestamp = Date("!%Y-%m-%dT%H:%M:%S")
 
 	local Packet = {
 		level = Level or "error";
