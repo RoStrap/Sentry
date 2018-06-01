@@ -14,7 +14,7 @@
 
 -- Configuration
 local DSN = "https://c65bfdd4c0804f19b48c70c495260da1:3df69ad66506495b876819441affeee7@sentry.io/1197144"
-local ENABLE_WARNINGS = true -- Doesn't upload, just puts them in the Server Logs
+local ENABLE_WARNINGS = true -- Doesn't affect uploading, just puts them in the Server Logs
 local MAX_CLIENT_ERROR_COUNT = 10
 
 -- Module Data
@@ -65,8 +65,10 @@ local Sentry = {}
 -- Mute Warnings if ENABLE_WARNINGS is not true
 local warn = ENABLE_WARNINGS and warn or function() end
 
+local LockedSentry
+
 local function Post(self, Message, Traceback, MessageType, Logger)
-	if self ~= Sentry then
+	if self ~= LockedSentry then
 		Message, Traceback, MessageType, Logger = self, Message, Traceback, MessageType
 	end
 
@@ -122,7 +124,7 @@ local function Post(self, Message, Traceback, MessageType, Logger)
 	end
 
 	if Count == 0 then
-		warn("[Sentry] Failed to convert string traceback to stacktrace: invalid traceback")
+		warn("[Sentry] Failed to convert string traceback to stacktrace: invalid traceback:", Traceback)
 	else
 		Packet.culprit = StackTrace[1].filename
 
@@ -189,4 +191,5 @@ RemoteEvent.OnServerEvent:Connect(function(Player, Message, Traceback, MessageTy
 	end
 end)
 
-return Table.Lock(Sentry)
+LockedSentry = Table.Lock(Sentry)
+return LockedSentry
