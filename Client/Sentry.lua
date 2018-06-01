@@ -31,7 +31,7 @@ local RemoteEvent = Resources:GetRemoteEvent("Sentry")
 -- Exposed API
 local Sentry = {}
 
-local LockedSentry
+local LockedSentry = Table.Lock(Sentry)
 
 function Sentry:Post(Message, Traceback, MessageType)
 	-- Post(string Message [string MessageType, string Traceback])
@@ -48,5 +48,4 @@ function Sentry:Post(Message, Traceback, MessageType)
 	)
 end
 
-LockedSentry = Table.Lock(Sentry)
 return LockedSentry
