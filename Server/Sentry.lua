@@ -65,7 +65,7 @@ local Sentry = {}
 -- Mute Warnings if ENABLE_WARNINGS is not true
 local warn = ENABLE_WARNINGS and warn or function() end
 
-local LockedSentry
+local LockedSentry = Table.Lock(Sentry)
 
 local function Post(self, Message, Traceback, MessageType, Logger)
 	if self ~= LockedSentry then
@@ -191,5 +191,4 @@ RemoteEvent.OnServerEvent:Connect(function(Player, Message, Traceback, MessageTy
 	end
 end)
 
-LockedSentry = Table.Lock(Sentry)
 return LockedSentry
